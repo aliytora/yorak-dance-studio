@@ -35,11 +35,19 @@ $css_path = $is_admin_page ? '../css/style.css' : './css/style.css';
             <div class="logo">
                 <a href="<?= $base_path ?>index.php">Yorak Dance Studio</a>
             </div>
-            <nav>
+            
+            <!-- Кнопка бургера -->
+            <button class="burger" id="burgerBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <nav id="navMenu">
                 <ul>
                     <?php if($is_admin_page): ?>
                         <!-- Админ-панель: только выход -->
-                        <li><a href="<?= $base_path ?>logout.php" style="color: #00d4ff;"> Выйти</a></li>
+                        <li><a href="<?= $base_path ?>logout.php" style="color: #00d4ff;">🚪 Выйти</a></li>
                     <?php else: ?>
                         <!-- Обычный сайт: полное меню -->
                         <li><a href="index.php">Главная</a></li>
@@ -59,4 +67,43 @@ $css_path = $is_admin_page ? '../css/style.css' : './css/style.css';
             </nav>
         </div>
     </header>
+    
+    <!-- Затемнение фона -->
+    <div class="overlay" id="overlay"></div>
+    
     <main>
+
+<script>
+// Бургер-меню
+const burgerBtn = document.getElementById('burgerBtn');
+const navMenu = document.getElementById('navMenu');
+const overlay = document.getElementById('overlay');
+
+if (burgerBtn) {
+    burgerBtn.addEventListener('click', function() {
+        this.classList.toggle('active');
+        navMenu.classList.toggle('active');
+        if (overlay) overlay.classList.toggle('active');
+        document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+    });
+}
+
+if (overlay) {
+    overlay.addEventListener('click', function() {
+        burgerBtn.classList.remove('active');
+        navMenu.classList.remove('active');
+        this.classList.remove('active');
+        document.body.style.overflow = '';
+    });
+}
+
+// Закрытие меню при клике на ссылку
+document.querySelectorAll('#navMenu a').forEach(link => {
+    link.addEventListener('click', () => {
+        burgerBtn.classList.remove('active');
+        navMenu.classList.remove('active');
+        if (overlay) overlay.classList.remove('active');
+        document.body.style.overflow = '';
+    });
+});
+</script>
