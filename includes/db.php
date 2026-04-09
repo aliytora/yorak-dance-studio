@@ -1,25 +1,33 @@
 <?php
-// Подключение к БД на Railway
-$host = getenv('DB_HOST') ?: 'localhost';
-$port = getenv('DB_PORT') ?: '3306';
-$user = getenv('DB_USER') ?: 'root';
-$password = getenv('DB_PASSWORD') ?: '';
-$database = getenv('DB_NAME') ?: 'dance_studio';
+// Получаем MYSQL_URL из переменных Railway
+$mysql_url = getenv('MYSQL_URL');
 
-// Подключение
-$conn = mysqli_connect($host, $user, $password, $database, $port);
-
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
+if (!$mysql_url) {
+    die("MYSQL_URL not found. Check Railway variables.");
 }
 
-mysqli_set_charset($conn, "utf8mb4");
-
-// PDO подключение
 try {
-    $pdo = new PDO("mysql:host=$host;port=$port;dbname=$database;charset=utf8mb4", $user, $password);
+    // PDO подключение
+    $pdo = new PDO($mysql_url);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    
+    // Для mysqli тоже подключаемся
+    $parsed = parse_url($mysql_url);
+    $host = $parsed['host'];
+    $port = $parsed['port'] ?? 3306;
+    $user = $parsed['user'];
+    $password = $parsed['pass'];
+    $database = ltrim($parsed['path'], '/');
+    
+    $conn = mysqli_connect($host, $user, $password, $database, $port);
+    
+    if (!$conn) {
+        die("MySQLi Connection failed: " . mysqli_connect_error());
+    }
+    
+    mysqli_set_charset($conn, "utf8mb4");
+    
 } catch(PDOException $e) {
-    die("PDO Connection failed: " . $e->getMessage());
+    die("Connection failed: " . $e->getMessage());
 }
 ?>
