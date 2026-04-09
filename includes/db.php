@@ -1,38 +1,37 @@
 <?php
-// Берем строку подключения напрямую (Railway её передает, но getenv может не работать)
-$mysql_url = "mysql://root:HJiAPYVJQPerzyJdvrHSOYYLkBBiBuRk@mysql.railway.internal:3306/railway";
+// Данные из твоих переменных Railway
+$host = 'mysql.railway.internal';
+$port = 3306;
+$user = 'root';
+$password = 'HJiAPYVJQPerzyJdvrHSOYYLkBBiBuRk';
+$database = 'railway';
 
-// ИЛИ пробуем через getenv
-$env_url = getenv('MYSQL_URL');
-if ($env_url) {
-    $mysql_url = $env_url;
-}
-
+// Пробуем подключиться через PDO
 try {
-    // PDO подключение
-    $pdo = new PDO($mysql_url);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    
-    // Парсим URL для mysqli
-    $parsed = parse_url($mysql_url);
-    $host = $parsed['host'];
-    $port = $parsed['port'] ?? 3306;
-    $user = $parsed['user'];
-    $password = $parsed['pass'];
-    $database = ltrim($parsed['path'], '/');
+    $pdo = new PDO(
+        "mysql:host=$host;port=$port;dbname=$database;charset=utf8mb4",
+        $user,
+        $password,
+        [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+            PDO::ATTR_TIMEOUT => 30
+        ]
+    );
     
     // MySQLi подключение
     $conn = mysqli_connect($host, $user, $password, $database, $port);
     
     if (!$conn) {
-        die("MySQLi Connection failed: " . mysqli_connect_error());
+        throw new Exception("MySQLi failed: " . mysqli_connect_error());
     }
     
     mysqli_set_charset($conn, "utf8mb4");
     
-    echo "✅ База данных подключена успешно!"; // Временно, потом удалишь
+    // Успех! (временно, потом удали)
+    error_log("✅ Database connected successfully");
     
 } catch(PDOException $e) {
-    die("Connection failed: " . $e->getMessage());
+    die("Ошибка БД: " . $e->getMessage());
 }
 ?>
