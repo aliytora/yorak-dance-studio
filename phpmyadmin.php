@@ -11,37 +11,10 @@ $database = 'railway';
     <title>Установка базы данных</title>
     <meta charset="UTF-8">
     <style>
-        body { 
-            background: #0a0a0a; 
-            color: #fff; 
-            font-family: monospace; 
-            padding: 20px;
-        }
-        textarea { 
-            width: 100%; 
-            height: 400px; 
-            background: #1a1a1a; 
-            color: #0f0; 
-            border: 1px solid #00d4ff; 
-            padding: 10px; 
-            font-size: 12px;
-        }
-        button { 
-            background: #00d4ff; 
-            color: #000; 
-            padding: 12px 30px; 
-            border: none; 
-            cursor: pointer; 
-            font-weight: bold;
-            margin-top: 10px;
-        }
-        pre { 
-            background: #1a1a1a; 
-            padding: 15px; 
-            overflow: auto; 
-            border-left: 3px solid #00d4ff;
-            margin-top: 20px;
-        }
+        body { background: #0a0a0a; color: #fff; font-family: monospace; padding: 20px; }
+        textarea { width: 100%; height: 500px; background: #1a1a1a; color: #0f0; border: 1px solid #00d4ff; padding: 10px; font-size: 12px; }
+        button { background: #00d4ff; color: #000; padding: 12px 30px; border: none; cursor: pointer; font-weight: bold; margin-top: 10px; }
+        pre { background: #1a1a1a; padding: 15px; overflow: auto; border-left: 3px solid #00d4ff; margin-top: 20px; max-height: 400px; overflow-y: auto; }
         .success { color: #0f0; }
         .error { color: #f00; }
         h1 { color: #00d4ff; }
@@ -61,28 +34,37 @@ $database = 'railway';
         try {
             $pdo = new PDO("mysql:host=$host;port=$port;dbname=$database;charset=utf8mb4", $user, $password);
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $pdo->exec("SET FOREIGN_KEY_CHECKS=0");
             
-            // Разбиваем SQL на отдельные запросы
-            $sqls = explode(";\n", $_POST['sql']);
+            // Выполняем каждый запрос отдельно
+            $sql = $_POST['sql'];
+            $sql = preg_replace('/\/\*.*?\*\//s', '', $sql); // Убираем комментарии
+            $sql = preg_replace('/^--.*$/m', '', $sql); // Убираем строки с --
+            $queries = explode(";\n", $sql);
+            
             $success = 0;
             $errors = [];
             
-            foreach ($sqls as $sql) {
-                $sql = trim($sql);
-                if (empty($sql)) continue;
+            foreach ($queries as $query) {
+                $query = trim($query);
+                if (empty($query)) continue;
                 
                 try {
-                    $pdo->exec($sql);
+                    $pdo->exec($query);
                     $success++;
+                    echo "<pre class='success'>✅ Выполнено: " . substr($query, 0, 80) . "...</pre>";
                 } catch(PDOException $e) {
                     $errors[] = $e->getMessage();
+                    echo "<pre class='error'>❌ Ошибка: " . $e->getMessage() . "</pre>";
                 }
             }
             
-            echo "<pre class='success'>✅ Выполнено! Успешных запросов: $success</pre>";
+            $pdo->exec("SET FOREIGN_KEY_CHECKS=1");
+            
+            echo "<hr><pre class='success'>✅ Всего выполнено: $success запросов</pre>";
             
             if (!empty($errors)) {
-                echo "<pre class='error'>⚠️ Ошибки:\n" . implode("\n", array_slice($errors, 0, 5)) . "</pre>";
+                echo "<pre class='error'>⚠️ Ошибок: " . count($errors) . "</pre>";
             }
             
         } catch(PDOException $e) {
