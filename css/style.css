@@ -1,0 +1,742 @@
+/* =====================================================
+   ДЕРЗКИЙ СТИЛЬ для Yorak Dance Studio
+   ЧЕРНЫЙ + ГРАФИТ + НЕОНОВЫЙ ГОЛУБОЙ + НЕОН
+   ===================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Oswald:wght@500;700&display=swap');
+
+/* 🎨 ОРИГИНАЛЬНАЯ ПАЛИТРА С НЕОНОВЫМ ГОЛУБЫМ */
+:root {
+    --primary-bg: #0c0c0c;           /* Черный фон */
+    --secondary-bg: #111111;         /* Графит */
+    --accent-main: #04d9ff;          /* НЕОНОВЫЙ ГОЛУБОЙ вместо розового */
+    --accent-neon: #00f5ff;          /* Яркий неоновый голубой */
+    --text-primary: #e0e0e0;         /* Основной текст */
+    --text-secondary: #a0a0a0;       /* Вторичный текст */
+    --border-color: #2a2a2a;         /* Границы */
+    --shadow-color: rgba(4, 217, 255, 0.4);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.6;
+    color: var(--text-primary);
+    background: var(--primary-bg);
+    background-image: 
+        linear-gradient(45deg, rgba(4, 217, 255, 0.02) 25%, transparent 25%),
+        linear-gradient(-45deg, rgba(4, 217, 255, 0.02) 25%, transparent 25%);
+    background-size: 60px 60px;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* =====================================================
+   ШАПКА - черная с неоновым голубым
+   ===================================================== */
+header {
+    background: #000000;
+    border-bottom: 3px solid var(--accent-main);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.98);
+    backdrop-filter: blur(5px);
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 80px;
+}
+
+.logo a {
+    font-size: 28px;
+    font-weight: 900;
+    color: #ffffff;
+    text-decoration: none;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-family: 'Oswald', sans-serif;
+    transition: all 0.3s;
+    border-right: 3px solid var(--accent-main);
+    padding-right: 20px;
+    text-shadow: 0 0 15px var(--accent-neon);
+}
+
+.logo a:hover {
+    color: var(--accent-main);
+    transform: scale(1.02);
+    text-shadow: 0 0 25px var(--accent-neon);
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 25px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: 600;
+    transition: all 0.3s;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    padding: 5px 0;
+    position: relative;
+}
+
+nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent-main), var(--accent-neon));
+    transition: width 0.3s;
+    box-shadow: 0 0 10px var(--accent-neon);
+}
+
+nav a:hover {
+    color: var(--accent-main);
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+/* =====================================================
+   ГЛАВНЫЙ БАННЕР - черный с неоновым свечением
+   ===================================================== */
+.hero {
+    background: #000000;
+    padding: 120px 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 3px solid var(--accent-main);
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        45deg,
+        rgba(4, 217, 255, 0.03) 0px,
+        rgba(4, 217, 255, 0.03) 20px,
+        transparent 20px,
+        transparent 40px
+    );
+    animation: moveStripes 20s linear infinite;
+}
+
+@keyframes moveStripes {
+    0% { transform: translateX(0) translateY(0); }
+    100% { transform: translateX(40px) translateY(40px); }
+}
+
+.hero h1 {
+    font-size: 72px;
+    font-weight: 900;
+    margin-bottom: 20px;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    position: relative;
+    z-index: 1;
+    font-family: 'Oswald', sans-serif;
+    text-shadow: 
+        0 0 30px var(--accent-neon),
+        3px 3px 0 #04d9ff,
+        -3px -3px 0 rgba(0, 0, 0, 0.5);
+    line-height: 1.2;
+}
+
+.hero p {
+    font-size: 20px;
+    color: #b0b0b0;
+    margin-bottom: 40px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    z-index: 1;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* =====================================================
+   КНОПКИ - с неоновым голубым
+   ===================================================== */
+.btn {
+    display: inline-block;
+    padding: 16px 45px;
+    background: transparent;
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 700;
+    transition: all 0.3s;
+    border: 2px solid var(--accent-main);
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-size: 14px;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    margin: 0 10px;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-main), var(--accent-neon));
+    transition: left 0.3s ease;
+    z-index: -1;
+}
+
+.btn:hover {
+    color: #000000;
+    border-color: var(--accent-neon);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px var(--shadow-color);
+}
+
+.btn:hover::before {
+    left: 0;
+}
+
+.btn-outline {
+    border: 2px solid #ffffff;
+    color: #ffffff;
+}
+
+.btn-outline:hover {
+    border-color: var(--accent-main);
+}
+
+/* =====================================================
+   ЗАГОЛОВКИ - с голубым неоном
+   ===================================================== */
+.section-title {
+    text-align: center;
+    font-size: 48px;
+    font-weight: 900;
+    margin-bottom: 60px;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    position: relative;
+    padding-bottom: 20px;
+    font-family: 'Oswald', sans-serif;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--accent-main), var(--accent-neon));
+    box-shadow: 0 0 15px var(--accent-neon);
+}
+
+/* =====================================================
+   КАРТОЧКИ НАПРАВЛЕНИЙ - черные с голубым
+   ===================================================== */
+.directions {
+    padding: 80px 0;
+    background: #0a0a0a;
+}
+
+.directions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.direction-card {
+    background: #111111;
+    border-radius: 0;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+    transition: all 0.3s;
+    border: 1px solid #2a2a2a;
+    position: relative;
+}
+
+.direction-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent-main);
+    box-shadow: 0 15px 40px var(--shadow-color);
+}
+
+.direction-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    transition: transform 0.5s;
+    filter: grayscale(80%) contrast(110%);
+}
+
+.direction-card:hover img {
+    transform: scale(1.05);
+    filter: grayscale(40%) contrast(120%);
+}
+
+.direction-card h3 {
+    padding: 25px 20px 10px;
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-left: 3px solid var(--accent-main);
+    margin-left: 20px;
+}
+
+.direction-card p {
+    padding: 0 20px 25px;
+    color: #a0a0a0;
+    font-size: 15px;
+    line-height: 1.7;
+}
+
+/* Остальные стили остаются точно такими же, только заменяем #04d9ff на var(--accent-main) */
+
+.trainers-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin: 50px 0;
+}
+
+.trainer-card {
+    background: #111111;
+    border-radius: 0;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+    text-align: center;
+    transition: all 0.3s;
+    border: 1px solid #2a2a2a;
+    position: relative;
+}
+
+.trainer-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent-main);
+    box-shadow: 0 15px 40px var(--shadow-color);
+}
+
+.trainer-card img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    transition: all 0.5s;
+    filter: grayscale(100%) contrast(120%);
+}
+
+.trainer-card:hover img {
+    filter: grayscale(40%) contrast(130%);
+}
+
+.trainer-card h3 {
+    margin: 25px 0 5px;
+    color: #ffffff;
+    font-size: 24px;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.trainer-card p {
+    color: #a0a0a0;
+    padding: 0 20px;
+    margin: 10px 0;
+    line-height: 1.7;
+}
+
+.instagram-link {
+    display: inline-block;
+    margin: 15px 0 25px;
+    color: var(--accent-main);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.instagram-link:hover {
+    color: #ffffff;
+    transform: scale(1.1);
+    text-shadow: 0 0 15px var(--accent-neon);
+}
+
+.schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #111111;
+    border-radius: 0;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+    border: 1px solid #2a2a2a;
+}
+
+.schedule-table th,
+.schedule-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #2a2a2a;
+    color: #e0e0e0;
+}
+
+.schedule-table th {
+    background: #1a1a1a;
+    color: var(--accent-main);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 14px;
+}
+
+.schedule-table tr:hover {
+    background: #1a1a1a;
+}
+
+.form-container {
+    max-width: 500px;
+    margin: 50px auto;
+    background: #111111;
+    padding: 40px;
+    border-radius: 0;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+    border: 1px solid #2a2a2a;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--accent-main);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 1px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #2a2a2a;
+    border-radius: 0;
+    font-family: inherit;
+    background: #1a1a1a;
+    color: #ffffff;
+    transition: all 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--accent-main);
+    background: #222222;
+    box-shadow: 0 0 20px var(--shadow-color);
+}
+
+footer {
+    background: #000000;
+    color: #ffffff;
+    padding: 40px 0;
+    margin-top: 80px;
+    border-top: 3px solid var(--accent-main);
+}
+
+footer p {
+    color: #a0a0a0;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.alert-success {
+    background: rgba(4, 217, 255, 0.1);
+    color: var(--accent-main);
+    border-left-color: var(--accent-main);
+}
+
+/* Адаптивность остается прежней */
+@media (max-width: 768px) {
+    header .container {
+        flex-direction: column;
+        height: auto;
+        padding: 20px;
+    }
+    
+    .logo a {
+        border-right: none;
+        border-bottom: 3px solid var(--accent-main);
+        padding-right: 0;
+        padding-bottom: 10px;
+        margin-bottom: 15px;
+    }
+    
+    nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 15px;
+    }
+    
+    .hero h1 {
+        font-size: 48px;
+    }
+    
+    .hero p {
+        font-size: 18px;
+    }
+}
+/* =====================================================
+   ФОРМЫ РЕГИСТРАЦИИ/АВТОРИЗАЦИИ - НЕОНОВЫЙ ГОЛУБОЙ
+   ===================================================== */
+
+.form-container {
+    max-width: 500px;
+    margin: 80px auto;
+    background: #111111;
+    padding: 50px;
+    border: 2px solid #2a2a2a;
+    border-top: 4px solid var(--accent-main);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 
+                0 0 40px var(--shadow-color);
+    position: relative;
+    transition: all 0.3s;
+}
+
+.form-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--accent-main), var(--accent-neon));
+    box-shadow: 0 0 20px var(--accent-neon);
+}
+
+.form-container h2 {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 900;
+    color: #ffffff;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-family: 'Oswald', sans-serif;
+    text-shadow: 0 0 20px var(--accent-neon);
+    position: relative;
+}
+
+.form-container h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent-main), var(--accent-neon));
+}
+
+.form-group {
+    margin-bottom: 25px;
+    position: relative;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--accent-main);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 1.5px;
+    text-shadow: 0 0 10px var(--accent-neon);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 16px 20px;
+    border: 2px solid #2a2a2a;
+    border-radius: 0;
+    font-family: inherit;
+    background: #1a1a1a;
+    color: #ffffff;
+    font-size: 16px;
+    transition: all 0.3s;
+    position: relative;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--accent-main);
+    background: #222222;
+    box-shadow: 
+        0 0 20px var(--shadow-color),
+        inset 0 0 10px rgba(4, 217, 255, 0.1);
+    transform: scale(1.02);
+}
+
+/* КНОПКИ ФОРМ */
+.btn-form {
+    width: 100%;
+    padding: 18px;
+    background: linear-gradient(135deg, var(--accent-main), var(--accent-neon));
+    color: #000000;
+    border: none;
+    font-weight: 800;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 16px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+    box-shadow: 0 10px 30px var(--shadow-color);
+    margin-top: 10px;
+}
+
+.btn-form::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.3);
+    transition: left 0.5s;
+    z-index: 1;
+}
+
+.btn-form:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 50px rgba(4, 217, 255, 0.6);
+}
+
+.btn-form:hover::before {
+    left: 100%;
+}
+
+.btn-form:active {
+    transform: translateY(-1px);
+}
+
+/* ССЫЛКИ НА ДРУГИЕ ФОРМЫ */
+.form-links {
+    text-align: center;
+    margin-top: 25px;
+    padding-top: 25px;
+    border-top: 1px solid #2a2a2a;
+}
+
+.form-links a {
+    color: var(--accent-main);
+    text-decoration: none;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 14px;
+    transition: all 0.3s;
+    position: relative;
+}
+
+.form-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent-main);
+    transition: width 0.3s;
+}
+
+.form-links a:hover {
+    color: #ffffff;
+    text-shadow: 0 0 15px var(--accent-neon);
+}
+
+.form-links a:hover::after {
+    width: 100%;
+}
+
+/* МЕССАДЖИ */
+.alert {
+    padding: 15px 20px;
+    margin-bottom: 25px;
+    border-left: 4px solid var(--accent-main);
+    border-radius: 0;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.alert-success {
+    background: rgba(4, 217, 255, 0.1);
+    color: var(--accent-main);
+    box-shadow: 0 0 20px var(--shadow-color);
+}
+
+.alert-error {
+    background: rgba(255, 107, 107, 0.1);
+    color: #ff6b6b;
+    border-left-color: #ff6b6b;
+}
+
+/* МОБИЛЬНАЯ АДАПТИВНОСТЬ */
+@media (max-width: 480px) {
+    .form-container {
+        margin: 40px 20px;
+        padding: 40px 25px;
+    }
+    
+    .form-container h2 {
+        font-size: 26px;
+    }
+    
+    .form-group input {
+        padding: 14px 16px;
+        font-size: 15px;
+    }
+}

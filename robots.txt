@@ -1,0 +1,28 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /includes/
+Disallow: /css/
+Disallow: /js/
+Disallow: /image/
+Disallow: /vendor/
+Disallow: /*.php$
+Disallow: /*.sql$
+Disallow: /booking.php
+Disallow: /cancel_booking.php
+Disallow: /login.php
+Disallow: /logout.php
+Disallow: /register.php
+Disallow: /cabinet.php
+Disallow: /check_memberships.php
+Disallow: /create_*.php
+
+
+Allow: /index.php
+Allow: /schedule.php
+Allow: /trainers.php
+Allow: /contacts.php
+
+
+Sitemap: https://yorak_dance.ru/sitemap.xml
+
+Host: https://yorak_dance.ru
