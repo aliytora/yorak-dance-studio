@@ -1,9 +1,11 @@
 <?php
-// Получаем MYSQL_URL из переменных Railway
-$mysql_url = getenv('MYSQL_URL');
+// Берем строку подключения напрямую (Railway её передает, но getenv может не работать)
+$mysql_url = "mysql://root:HJiAPYVJQPerzyJdvrHSOYYLkBBiBuRk@mysql.railway.internal:3306/railway";
 
-if (!$mysql_url) {
-    die("MYSQL_URL not found. Check Railway variables.");
+// ИЛИ пробуем через getenv
+$env_url = getenv('MYSQL_URL');
+if ($env_url) {
+    $mysql_url = $env_url;
 }
 
 try {
@@ -11,7 +13,7 @@ try {
     $pdo = new PDO($mysql_url);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
-    // Для mysqli тоже подключаемся
+    // Парсим URL для mysqli
     $parsed = parse_url($mysql_url);
     $host = $parsed['host'];
     $port = $parsed['port'] ?? 3306;
@@ -19,6 +21,7 @@ try {
     $password = $parsed['pass'];
     $database = ltrim($parsed['path'], '/');
     
+    // MySQLi подключение
     $conn = mysqli_connect($host, $user, $password, $database, $port);
     
     if (!$conn) {
@@ -26,6 +29,8 @@ try {
     }
     
     mysqli_set_charset($conn, "utf8mb4");
+    
+    echo "✅ База данных подключена успешно!"; // Временно, потом удалишь
     
 } catch(PDOException $e) {
     die("Connection failed: " . $e->getMessage());
